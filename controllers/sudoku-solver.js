@@ -1,7 +1,12 @@
 class SudokuSolver {
 
   validate(puzzleString) {
-    return '';
+    let invalidCharacter = /[^.0-9]/.test(puzzleString);
+    if (invalidCharacter) {
+      return { "error": "Invalid characters in puzzle" };
+    } else {
+      return '';
+    }
   }
 
   checkRowPlacement(puzzleString, row, column, value) {
