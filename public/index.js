@@ -59,6 +59,5 @@ async function getChecked() {
   errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
 }
 
-
 document.getElementById("solve-button").addEventListener("click", getSolved)
 document.getElementById("check-button").addEventListener("click", getChecked)
