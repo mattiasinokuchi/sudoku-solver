@@ -1,6 +1,7 @@
 class SudokuSolver {
 
   validate(puzzleString) {
+    return '';
   }
 
   checkRowPlacement(puzzleString, row, column, value) {
