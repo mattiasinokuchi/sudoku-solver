@@ -12,8 +12,11 @@ suite('UnitTests', () => {
       assert.equal(solver.validate(string),'');
       done();
     });
+
+    test('Invalid characters', function(done) {
+      let string = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      assert.deepEqual(solver.validate(string), { "error": "Invalid characters in puzzle" });
+      done();
+    });
   });
-
-// { "error": "Expected puzzle to be 81 characters long" }
-
 });
