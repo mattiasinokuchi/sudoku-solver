@@ -30,14 +30,24 @@ suite('UnitTests', () => {
     
     test('Valid row', function(done) {
       let string = '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-      assert.equal(solver.checkRowPlacement(string), false);
+      assert.equal(solver.invalidRowPlacement(string), false);
       done();
     });
 
     test('Invalid row', function(done) {
-      let string = '.99..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-      assert.equal(solver.checkRowPlacement(string), true);
+      let string = '.9.9.5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      assert.equal(solver.invalidRowPlacement(string), true);
       done();
     });
+  });
+
+  suite('Column placement', () => {
+
+    test('Valid column', function(done) {
+      let string = '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      assert.equal(solver.invalidColumnPlacement(string), false);
+      done();
+    });
+
   });
 });

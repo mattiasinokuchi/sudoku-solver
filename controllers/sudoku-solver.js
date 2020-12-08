@@ -11,22 +11,22 @@ class SudokuSolver {
     }
   }
 
-  checkRowPlacement(string, trow, column, value) {
+  invalidRowPlacement(string, trow, column, value) {
     // make array from string
     let row = [];
-    let char = 0;
-    let rowIndex = 0;
-    let puzzle = [];
-    while (char<81) {
-      while (rowIndex<9) {
-        row.push(string[char]);
-        char++;
-        rowIndex++;
+    let strIndex = 0;
+    let arrIndex = 0;
+    //let puzzle = [];
+    while (strIndex<81) {
+      while (arrIndex<9) {
+        row.push(string[strIndex]);
+        strIndex++;
+        arrIndex++;
       }
       if (hasDuplicateNumbers(row)) return true;
-      puzzle.push(row);
+      //puzzle.push(row);
       row = [];
-      rowIndex = 0;
+      arrIndex = 0;
     }
     return false
   }
