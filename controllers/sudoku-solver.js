@@ -11,15 +11,23 @@ class SudokuSolver {
     }
   }
 
-  checkRowPlacement(puzzleString, row, column, value) {
-    // divide string into one array of rows
-    let arrayOfAllRows = puzzleString.match(/.{1,9}/g);
-    arrayOfAllRows.forEach((element) => {
-      // extract numbers
-      let oneRowOfNumbers = element.replace(/\./g, '');
-      // check for duplicate numbers
-      if (hasDuplicateNumbers(oneRowOfNumbers)) return true;
-    });
+  checkRowPlacement(string, trow, column, value) {
+    // make array from string
+    let row = [];
+    let char = 0;
+    let rowIndex = 0;
+    let puzzle = [];
+    while (char<81) {
+      while (rowIndex<9) {
+        row.push(string[char]);
+        char++;
+        rowIndex++;
+      }
+      if (hasDuplicateNumbers(row)) return true;
+      puzzle.push(row);
+      row = [];
+      rowIndex = 0;
+    }
     return false
   }
 
@@ -38,6 +46,9 @@ class SudokuSolver {
 
 module.exports = SudokuSolver;
 
-function hasDuplicateNumbers(string) {
-  return /([1-9])\1/g.test(string);
+function hasDuplicateNumbers(array) {
+  var duplicates = array.reduce(function(acc, el, i, arr) {
+    if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
+  }, []);
+  return duplicates.length>1;
 }
