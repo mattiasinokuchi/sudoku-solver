@@ -47,8 +47,11 @@ class SudokuSolver {
 module.exports = SudokuSolver;
 
 function hasDuplicateNumbers(array) {
-  var duplicates = array.reduce(function(acc, el, i, arr) {
-    if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
-  }, []);
-  return duplicates.length>1;
+  let duplicates = array.reduce(function(accumulator, currentValue, currentIndex, array) {
+    if (array.indexOf(currentValue) !== currentIndex && currentValue !== '.') {
+      accumulator.push(currentValue);
+    }
+    return accumulator;
+  }, []); // [] is the initial value
+  return duplicates.length>0;
 }
