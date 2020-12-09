@@ -11,7 +11,7 @@ class SudokuSolver {
     }
   }
 
-  invalidRowPlacement(string, trow, column, value) {
+  invalidRowPlacement(string/*, row, column, value*/) {
     // make array from string
     let row = [];
     let strIndex = 0;
@@ -31,8 +31,23 @@ class SudokuSolver {
     return false
   }
 
-  checkColPlacement(puzzleString, row, column, value) {
-
+  invalidColumnPlacement(string/*, row, column, value*/) {
+    // make array from string
+    let column = [];
+    let strIndex = 0;
+    let arrIndex = 0;
+    while (arrIndex<9) {
+      while (strIndex<81) {
+        column.push(string[strIndex]);
+        strIndex+=9;
+      }
+    if (hasDuplicateNumbers(column)) return true;
+    console.log(string, column);
+    arrIndex++;
+    column = [];
+    strIndex = arrIndex;
+    }
+    return false;
   }
 
   checkRegionPlacement(puzzleString, row, column, value) {
