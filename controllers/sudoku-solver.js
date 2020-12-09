@@ -11,7 +11,7 @@ class SudokuSolver {
     }
   }
 
-  invalidRowPlacement(string/*, row, column, value*/) {
+  hasInvalidRow(string/*, row, column, value*/) {
     let row = [];
     let strIndex = 0;
     let arrIndex = 0;
@@ -21,14 +21,14 @@ class SudokuSolver {
         strIndex++;
         arrIndex++;
       }
-      if (hasDuplicateNumbers(row)) return true;
+      if (hasDuplicate(row)) return true;
       row = [];
       arrIndex = 0;
     }
     return false
   }
 
-  invalidColumnPlacement(string/*, row, column, value*/) {
+  hasInvalidColumn(string/*, row, column, value*/) {
     let column = [];
     let strIndex = 0;
     let arrIndex = 0;
@@ -37,7 +37,7 @@ class SudokuSolver {
         column.push(string[strIndex]);
         strIndex+=9;
       }
-      if (hasDuplicateNumbers(column)) return true;
+      if (hasDuplicate(column)) return true;
       arrIndex++;
       column = [];
       strIndex = arrIndex;
@@ -45,8 +45,22 @@ class SudokuSolver {
     return false;
   }
 
-  checkRegionPlacement(puzzleString, row, column, value) {
-
+  hasInvalidRegion(string/*, row, column, value*/) {
+    let row = [];
+    let strIndex = 0;
+    let arrIndex = 0;
+    while (strIndex<81) {
+      while (arrIndex<3) {
+        row.push(string[strIndex]);
+        strIndex++;
+        arrIndex++;
+      }
+      if (hasDuplicate(row)) return true;
+      console.log(string, row);
+      strIndex+=6;
+      arrIndex = 0;
+    }
+    return false
   }
 
   solve(puzzleString) {
@@ -56,7 +70,7 @@ class SudokuSolver {
 
 module.exports = SudokuSolver;
 
-function hasDuplicateNumbers(array) {
+function hasDuplicate(array) {
   let duplicates = array.reduce(function(accumulator, currentValue, currentIndex, array) {
     if (array.indexOf(currentValue) !== currentIndex && currentValue !== '.') {
       accumulator.push(currentValue);
