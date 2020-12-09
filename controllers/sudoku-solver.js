@@ -12,11 +12,9 @@ class SudokuSolver {
   }
 
   invalidRowPlacement(string/*, row, column, value*/) {
-    // make array from string
     let row = [];
     let strIndex = 0;
     let arrIndex = 0;
-    //let puzzle = [];
     while (strIndex<81) {
       while (arrIndex<9) {
         row.push(string[strIndex]);
@@ -24,7 +22,6 @@ class SudokuSolver {
         arrIndex++;
       }
       if (hasDuplicateNumbers(row)) return true;
-      //puzzle.push(row);
       row = [];
       arrIndex = 0;
     }
@@ -32,7 +29,6 @@ class SudokuSolver {
   }
 
   invalidColumnPlacement(string/*, row, column, value*/) {
-    // make array from string
     let column = [];
     let strIndex = 0;
     let arrIndex = 0;
@@ -41,11 +37,10 @@ class SudokuSolver {
         column.push(string[strIndex]);
         strIndex+=9;
       }
-    if (hasDuplicateNumbers(column)) return true;
-    console.log(string, column);
-    arrIndex++;
-    column = [];
-    strIndex = arrIndex;
+      if (hasDuplicateNumbers(column)) return true;
+      arrIndex++;
+      column = [];
+      strIndex = arrIndex;
     }
     return false;
   }
