@@ -46,19 +46,26 @@ class SudokuSolver {
   }
 
   hasInvalidRegion(string/*, row, column, value*/) {
-    let row = [];
+    let region = [];
     let strIndex = 0;
     let arrIndex = 0;
-    while (strIndex<81) {
-      while (arrIndex<3) {
-        row.push(string[strIndex]);
-        strIndex++;
-        arrIndex++;
+    let regIndex = 0;
+    while (regIndex<9) {
+      while (region.length<9) {
+        while (arrIndex<3) {
+          region.push(string[strIndex]);
+          strIndex++;
+          arrIndex++;
+        }
+        if (hasDuplicate(region)) return true;
+        strIndex+=6;
+        arrIndex = 0;
       }
-      if (hasDuplicate(row)) return true;
-      console.log(string, row);
-      strIndex+=6;
-      arrIndex = 0;
+      region = [];
+      regIndex++;
+      if (regIndex<3) strIndex = regIndex*3;
+      else if (regIndex<6) strIndex = 18 + regIndex*3;
+      else if (regIndex<9) strIndex = 36 + regIndex*3;
     }
     return false
   }
