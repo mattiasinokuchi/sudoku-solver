@@ -99,12 +99,32 @@ class SudokuSolver {
     return false
   }
 
-  solve(puzzleString) {
-    
+  // Brute force function for solving sudoku...
+  solve(string) {
+    // ...splits string to an array...
+    let solution = string.split('');
+    //console.log(solution.join(''));
+    // ...adds a digit in the first gap...
+    let digit = 1;
+    let firstGapIndex = solution.indexOf('.');
+    while (digit<9) {
+      solution[firstGapIndex] = digit;
+      //console.log(solution.join(''),'   ');
+      // ...invalidates the solution...
+      if (solver.hasInvalidRow(solution.join('')) || solver.hasInvalidColumn(solution.join('')) || solver.hasInvalidRegion(solution.join(''))) {
+        // ...increments digit...
+        digit++;
+        // ...or leaves the gap and moves back to previous gap...
+      // ...or moves forward to the next gap...
+      } else break;
+    }
+    console.log(solution);
   }
 }
 
 module.exports = SudokuSolver;
+
+let solver = new SudokuSolver();
 
 function hasDuplicate(array) {
   let duplicates = array.reduce(function(accumulator, currentValue, currentIndex, array) {
