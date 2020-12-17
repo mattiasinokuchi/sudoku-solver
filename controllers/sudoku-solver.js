@@ -99,31 +99,40 @@ class SudokuSolver {
     return false
   }
 
-  // Brute force function for solving sudoku...
+  // Function for solving sudoku by brute force...
   solve(string) {
     // ...splits string to an array...
-    let solution = string.split('');
-    // ...loops following steps until all gaps are gone...
-    while (solution.includes('.')) {
-          // ...adds a digit in the closest gap...
-      let digit = 1;
-      let firstGapIndex = solution.indexOf('.');
-      while (digit<10) {
-        solution[firstGapIndex] = digit;
-        // ...invalidates the solution...
-        if (solver.hasInvalidRow(solution.join('')) || solver.hasInvalidColumn(solution.join('')) || solver.hasInvalidRegion(solution.join(''))) {
-          // ...increments digit...
-          digit++;
-        // ...or stops to look for a valid digit...
-        } else break;
+    const solution = string.split('');
+    let backToIndex = solution.length;
+    let leastGaps = gaps(solution);
+    // ...loops solving which...
+    while (gaps(solution)>0 && backToIndex>36) {
+      // ...heads for the first gap...
+      let index = solution.indexOf('.');
+      let number = 1;
+      // ...loops a trial which...
+      while (isInvalid(solution) || number===1) {
+        if (number>9) {
+          // ...backs and modifies solution if all numbers fails...
+          console.log('BEFORE: ', 'backToIndex:', backToIndex, ' ', solution.join(''), ' ');
+          modify(solution, backToIndex);
+          // ...sets backToIndex to same index as last filled number...
+          if (backToIndex>solution.lastIndexOf(lastFilled(solution))) {
+            backToIndex = solution.lastIndexOf(lastFilled(solution));
+          }
+          console.log('AFTER:  ', 'backToIndex:  ', backToIndex, solution.join(''), ' ');
+          break;
+        }
+        // ...or adds the first valid number to the solution...
+        solution[index] = number;
+        number++;
+        if (leastGaps>gaps) {
+          console.log(leastGaps, gaps);
+        }
       }
-      // ...checks if digit for the gap is invalid ...
-      if (digit>9) console.log(digit>9);
-      // ...leaves the gap and moves back to previous gap...
-      
     }
-    console.log(solution.join(''));
-  }
+    console.log(solution.join(''), gaps(solution), backToIndex);
+    }
 }
 
 module.exports = SudokuSolver;
@@ -138,4 +147,44 @@ function hasDuplicate(array) {
     return accumulator;
   }, []); // [] is the initial value
   return duplicates.length>0;
+}
+
+// Function to back and find a different solution...
+function modify(solution, backToIndex) {
+  // ...resets filled numbers...
+  while (backToIndex<solution.lastIndexOf(lastFilled(solution))) {
+    solution[solution.lastIndexOf(lastFilled(solution))] = '.';
+  }
+  while (lastFilled(solution)===9) {
+    // ...resets last filled number 9...
+    solution[solution.lastIndexOf(lastFilled(solution))] = '.';
+  }
+  // ...increments last filled number 1-8...
+  solution[solution.lastIndexOf(lastFilled(solution))] = lastFilled(solution)+1;
+  return;
+}
+
+// Function to return if solution is invalid
+function isInvalid(solution) {
+  if (solver.hasInvalidRow(solution.join('')) || solver.hasInvalidColumn(solution.join('')) || solver.hasInvalidRegion(solution.join(''))) {
+    return true;
+  } else return false;
+}
+
+// Function to return last filled number...
+function lastFilled(solution) {
+  // ...finds numbers filled in...
+  let filled = solution.reduce(function (accumulator, currentValue) {
+    // (ignores numbers from the clue since they are strings)
+    if (typeof(currentValue) === 'number') {
+      accumulator.push(currentValue);
+    }
+    return accumulator
+  }, []);
+  return filled[filled.length-1];
+}
+
+// Function to return number of gaps...
+function gaps (solution) {
+  return solution.filter(gaps => gaps == '.').length;
 }
