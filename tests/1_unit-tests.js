@@ -70,9 +70,30 @@ suite('UnitTests', () => {
 
   suite('Solver', () => {
 
-    test('Valid strings', function(done) {
-      assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0], validString.puzzlesAndSolutions[0][1]), false);
+    test('Valid string 1', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0]), validString.puzzlesAndSolutions[0][1]);
       done();
     });
+
+    test('Valid string 2', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[1][0]), validString.puzzlesAndSolutions[1][1]);
+      done();
+    });
+
+    test('Valid string 3', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[2][0]), validString.puzzlesAndSolutions[2][1]);
+      done();
+    });
+
+    test('Valid string 4', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[3][0]), validString.puzzlesAndSolutions[3][1]);
+      done();
+    });
+
+    test('Valid string 5', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[4][0]), validString.puzzlesAndSolutions[4][1]);
+      done();
+    });
+
   });
 });
