@@ -71,7 +71,7 @@ suite('UnitTests', () => {
   suite('Solver', () => {
 
     test('Valid strings', function(done) {
-      assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0]), false);
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0], validString.puzzlesAndSolutions[0][1]), false);
       done();
     });
   });

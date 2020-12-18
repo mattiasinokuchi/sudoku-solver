@@ -100,39 +100,40 @@ class SudokuSolver {
   }
 
   // Function for solving sudoku by brute force...
-  solve(string) {
+  solve(string, answer) {
     // ...splits string to an array...
     const solution = string.split('');
     let backToIndex = solution.length;
-    let leastGaps = gaps(solution);
     // ...loops solving which...
-    while (gaps(solution)>0 && backToIndex>36) {
+    while (gaps(solution)>0) {
       // ...heads for the first gap...
+      let gapsBefore = gaps(solution);
       let index = solution.indexOf('.');
       let number = 1;
+      console.log(solution.join(''), 'gapsBefore:', gapsBefore, 'backToIndex:', backToIndex, 'before loop');
       // ...loops a trial which...
       while (isInvalid(solution) || number===1) {
         if (number>9) {
-          // ...backs and modifies solution if all numbers fails...
-          console.log('BEFORE: ', 'backToIndex:', backToIndex, ' ', solution.join(''), ' ');
+          // ...modifies solution...
           modify(solution, backToIndex);
-          // ...sets backToIndex to same index as last filled number...
           if (backToIndex>solution.lastIndexOf(lastFilled(solution))) {
+            // ...updates backToIndex if solution is backed...
             backToIndex = solution.lastIndexOf(lastFilled(solution));
           }
-          console.log('AFTER:  ', 'backToIndex:  ', backToIndex, solution.join(''), ' ');
+          // ...heads to solve the first gap...
           break;
         }
-        // ...or adds the first valid number to the solution...
-        solution[index] = number;
-        number++;
-        if (leastGaps>gaps) {
-          console.log(leastGaps, gaps);
-        }
+        // ...or increments number in solution...
+        solution[index] = number++;
       }
+      let gapsAfter = gaps(solution);
+      if (gapsBefore>gapsAfter) {
+        backToIndex = solution.lastIndexOf(lastFilled(solution));
+      }
+      console.log(solution.join(''), 'gapsAfter:', gapsAfter, 'backToIndex:', backToIndex, 'after loop');
+      console.log(answer);
     }
-    console.log(solution.join(''), gaps(solution), backToIndex);
-    }
+  }
 }
 
 module.exports = SudokuSolver;
