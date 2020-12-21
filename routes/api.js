@@ -12,7 +12,7 @@ module.exports = function (app) {
     });
     
   app.route('/api/solve')
-    .post((req, res) => {
-
+    .post(async function (req, res) {
+      
     });
 };
