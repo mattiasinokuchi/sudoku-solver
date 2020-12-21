@@ -132,6 +132,9 @@ class SudokuSolver {
         // ...updates backToIndex if a gap is filled...
         backToIndex = solution.lastIndexOf(lastFilled(solution));
       }
+      if (backToIndex<0) {
+        return { error: 'Puzzle cannot be solved' };
+      }
     }
     return solution.join('');
   }

@@ -95,5 +95,17 @@ suite('UnitTests', () => {
       done();
     });
 
+    /*test('String designed against brute force algorithm', function(done) {
+      let string = '..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9';
+      assert.equal(solver.solve(string, ''));
+      done();
+    });*/
+
+    test('Invalid string', function(done) {
+      let invalidString = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
+      assert.deepEqual(solver.solve(invalidString), { error: 'Puzzle cannot be solved' });
+      done();
+    });
+
   });
 });
