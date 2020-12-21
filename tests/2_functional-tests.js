@@ -20,7 +20,7 @@ suite('Functional Tests', () => {
       })
       .end(function (err, res) {
         assert.equal(res.status, 200);
-        console.log(res.body);
+        console.log(res.text);
         done();
       });
     });

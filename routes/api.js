@@ -13,6 +13,13 @@ module.exports = function (app) {
     
   app.route('/api/solve')
     .post(async function (req, res) {
-      
+      try {
+        const solution = await solver.solve(req.body.puzzle);
+        res.json({
+          solution: solution
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
 };
