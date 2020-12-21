@@ -20,7 +20,9 @@ suite('Functional Tests', () => {
       })
       .end(function (err, res) {
         assert.equal(res.status, 200);
-        console.log(res.text);
+        assert.isObject(res.body, true);
+        assert.property(res.body, 'solution', true);
+        assert.equal(res.body.solution, validString.puzzlesAndSolutions[0][1]);
         done();
       });
     });
