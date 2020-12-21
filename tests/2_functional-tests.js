@@ -26,6 +26,21 @@ suite('Functional Tests', () => {
         done();
       });
     });
+
+    test('Missing string', function(done) {
+      chai.request(server)
+      .post('/api/solve')
+      .send({
+        puzzle: ''
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Required field missing' });
+        done();
+      });
+    });
+
   });
 });
 
