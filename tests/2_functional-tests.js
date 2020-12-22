@@ -30,13 +30,26 @@ suite('Functional Tests', () => {
     test('Missing string', function(done) {
       chai.request(server)
       .post('/api/solve')
-      .send({
-        puzzle: ''
-      })
+      .send({})
       .end(function (err, res) {
         assert.equal(res.status, 200);
         assert.isObject(res.body, true);
         assert.deepEqual(res.body, { error: 'Required field missing' });
+        done();
+      });
+    });
+
+    test('Invalid characters', function(done) {
+      let string = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      chai.request(server)
+      .post('/api/solve')
+      .send({
+        puzzle: string
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Invalid characters in puzzle' });
         done();
       });
     });

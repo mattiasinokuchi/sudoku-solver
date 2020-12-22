@@ -1,19 +1,13 @@
 class SudokuSolver {
 
-  // Function for validate input string...
+  // Function for validate input string
   validate(string) {
-    // ...defines valid characters...
-    let invalidCharacter = /[^.0-9]/.test(string);
-    // ...return first error message...
-    if (invalidCharacter) {
-      return { error: "Invalid characters in puzzle" };
-    // ...return second message...
-    } else if (string.length != 81) {
-      return { error: "Expected puzzle to be 81 characters long" };
-    // ...or return nothing
-    } else {
-      return '';
-    }
+    if (!string) throw 'Required field missing';
+    // define characters
+    let invalidCharacter = /[^.1-9]/.test(string);
+    if (invalidCharacter) throw 'Invalid characters in puzzle';
+    if (string.length != 81) throw 'Expected puzzle to be 81 characters long';
+    return;
   }
 
   // Function for validate rows...
@@ -101,6 +95,7 @@ class SudokuSolver {
 
   // Function for solving sudoku by brute force...
   solve(string, answer) {
+    this.validate(string);
     // ...splits string to an array...
     const solution = string.split('');
     let backToIndex = solution.length;
