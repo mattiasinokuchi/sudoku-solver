@@ -87,8 +87,8 @@ suite('UnitTests', () => {
     });*/
 
     test('Invalid string', function(done) {
-      let invalidString = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
-      assert.deepEqual(solver.solve(invalidString), { error: 'Puzzle cannot be solved' });
+      let string = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
+      expect(() => solver.solve(string)).to.throw('Puzzle cannot be solved');
       done();
     });
   });

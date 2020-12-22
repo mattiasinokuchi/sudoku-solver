@@ -69,6 +69,21 @@ suite('Functional Tests', () => {
       });
     });
 
+    test('Cannot be solved', function(done) {
+      let string = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
+      chai.request(server)
+      .post('/api/solve')
+      .send({
+        puzzle: string
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Puzzle cannot be solved' });
+        done();
+      });
+    });
+
   });
 });
 
