@@ -8,14 +8,24 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
-
+      try {
+        const validPlacement = solver.checkPlace(req.body.puzzle, req.body.coordinate, req.body.value);
+        res.json({
+          valid: true
+        });
+      } catch (error) {
+        if (!validPlacement) {
+          res.json({
+            valid: false,
+            conflict: error
+          });
+        }
+        console.log(error);
+      }
     });
     
   app.route('/api/solve')
     .post(async function (req, res) {
-      /*if (!req.body.puzzle) {
-        res.json({ error: 'Required field missing' });
-      }*/
       try {
         const solution = await solver.solve(req.body.puzzle);
         res.json({

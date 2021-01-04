@@ -133,6 +133,16 @@ class SudokuSolver {
     }
     return solution.join('');
   }
+
+  // Function for checking manual placement
+  checkPlace(string, coordinate, value) {
+    const index = indexOf(coordinate);
+    const newString = setString(string, index, value);
+    if (this.hasInvalidRow(newString)) throw 'row';
+    if (this.hasInvalidColumn(newString)) throw 'column';
+    if (this.hasInvalidRegion(newString)) throw 'region';
+    return;
+  }
 }
 
 module.exports = SudokuSolver;
@@ -187,4 +197,30 @@ function lastFilled(solution) {
 // Function to return number of gaps...
 function gaps (solution) {
   return solution.filter(gaps => gaps == '.').length;
+}
+
+// Function to convert puzzle coordinate to string index
+function indexOf (coordinate) {
+  const row = coordinate[0].toLowerCase();
+  const column = Math.floor(coordinate[1]);
+  if (isNaN(column)) return 'Invalid coordinate';
+  switch (row) {
+    case 'a': return column - 1
+    case 'b': return 8 + column
+    case 'c': return 17 + column
+    case 'd': return 26 + column
+    case 'e': return 35 + column
+    case 'f': return 44 + column
+    case 'g': return 53 + column
+    case 'h': return 62 + column
+    case 'i': return 71 + column
+    default: return 'Invalid coordinate'
+  }
+}
+
+// Function to make a new string
+function setString (string, index, value) {
+  const array = string.split('');
+  array[index] = value;
+  return array.join('');
 }

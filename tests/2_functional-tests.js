@@ -85,5 +85,26 @@ suite('Functional Tests', () => {
     });
 
   });
+
+  suite('Check a puzzle placement', () => {
+
+    test('All fields', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: validString.puzzlesAndSolutions[0][0],
+        coordinate: 'a1',
+        value: 7
+      })
+      .end(function (err, res) {
+        console.log(res.body);
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { valid: true });
+        done();
+      });
+    });
+  });
+
 });
 
