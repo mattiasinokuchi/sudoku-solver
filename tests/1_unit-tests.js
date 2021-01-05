@@ -91,5 +91,10 @@ suite('UnitTests', () => {
       expect(() => solver.solve(string)).to.throw('Puzzle cannot be solved');
       done();
     });
+
+    test('Expected solution', function(done) {
+      assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0]), validString.puzzlesAndSolutions[0][1]);
+      done();
+    });
   });
 });
