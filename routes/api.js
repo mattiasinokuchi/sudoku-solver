@@ -9,15 +9,21 @@ module.exports = function (app) {
   app.route('/api/check')
     .post((req, res) => {
       try {
-        const validPlacement = solver.checkPlace(req.body.puzzle, req.body.coordinate, req.body.value);
+        solver.checkPlace(req.body.puzzle, req.body.coordinate, req.body.value);
         res.json({
           valid: true
         });
       } catch (error) {
-        res.json({
-          valid: false,
-          conflict: error
-        });
+        if (Array.isArray(error)) {
+          res.json({
+            valid: false,
+            conflict: error
+          });
+        } else if (error.name == 'TypeError') {
+          res.json({
+            error: 'Required field(s) missing'
+          });
+        } else console.log;
       }
     });
     

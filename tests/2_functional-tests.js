@@ -152,6 +152,22 @@ suite('Functional Tests', () => {
       });
     });
 
+    test('Missing fields', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: validString.puzzlesAndSolutions[0][0],
+        coordinate: '',
+        value: ''
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Required field(s) missing' });
+        done();
+      });
+    });
+
   });
 
 });
