@@ -203,7 +203,7 @@ function gaps (solution) {
 function indexOf (coordinate) {
   const row = coordinate[0].toLowerCase();
   const column = Math.floor(coordinate[1]);
-  if (isNaN(column)) return 'Invalid coordinate';
+  if (isNaN(column)) throw 'Invalid coordinate';
   switch (row) {
     case 'a': return column - 1
     case 'b': return 8 + column
@@ -214,7 +214,7 @@ function indexOf (coordinate) {
     case 'g': return 53 + column
     case 'h': return 62 + column
     case 'i': return 71 + column
-    default: return 'Invalid coordinate'
+    default: throw 'Invalid coordinate'
   }
 }
 

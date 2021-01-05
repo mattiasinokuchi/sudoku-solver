@@ -14,13 +14,10 @@ module.exports = function (app) {
           valid: true
         });
       } catch (error) {
-        if (!validPlacement) {
-          res.json({
-            valid: false,
-            conflict: error
-          });
-        }
-        console.log(error);
+        res.json({
+          valid: false,
+          conflict: error
+        });
       }
     });
     
