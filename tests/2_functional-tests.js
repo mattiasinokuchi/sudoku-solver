@@ -200,6 +200,22 @@ suite('Functional Tests', () => {
       });
     });
 
+    test('Invalid placement coordinate', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: validString.puzzlesAndSolutions[0][0],
+        coordinate: 'j10',
+        value: 7
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Invalid coordinate' });
+        done();
+      });
+    });
+
   });
 
 });
