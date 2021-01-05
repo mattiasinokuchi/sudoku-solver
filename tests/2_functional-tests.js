@@ -168,7 +168,7 @@ suite('Functional Tests', () => {
       });
     });
 
-  test('Invalid characters', function(done) {
+    test('Invalid characters', function(done) {
       chai.request(server)
       .post('/api/check')
       .send({
@@ -180,6 +180,22 @@ suite('Functional Tests', () => {
         assert.equal(res.status, 200);
         assert.isObject(res.body, true);
         assert.deepEqual(res.body, { error: 'Invalid characters in puzzle' });
+        done();
+      });
+    });
+
+    test('Incorrect length', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..',
+        coordinate: 'a1',
+        value: 7
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Expected puzzle to be 81 characters long' });
         done();
       });
     });
