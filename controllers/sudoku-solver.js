@@ -136,11 +136,13 @@ class SudokuSolver {
 
   // Function for checking manual placement
   checkPlace(string, coordinate, value) {
+    let conflicts = [];
     const index = indexOf(coordinate);
     const newString = setString(string, index, value);
-    if (this.hasInvalidRow(newString)) throw 'row';
-    if (this.hasInvalidColumn(newString)) throw 'column';
-    if (this.hasInvalidRegion(newString)) throw 'region';
+    if (this.hasInvalidRow(newString)) conflicts.push('row');
+    if (this.hasInvalidColumn(newString)) conflicts.push( 'column');
+    if (this.hasInvalidRegion(newString)) conflicts.push('region');
+    if (conflicts.length>0) throw conflicts;
     return;
   }
 }
