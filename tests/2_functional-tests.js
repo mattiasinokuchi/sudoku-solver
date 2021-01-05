@@ -168,6 +168,22 @@ suite('Functional Tests', () => {
       });
     });
 
+  test('Invalid characters', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..',
+        coordinate: 'a1',
+        value: 7
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Invalid characters in puzzle' });
+        done();
+      });
+    });
+
   });
 
 });

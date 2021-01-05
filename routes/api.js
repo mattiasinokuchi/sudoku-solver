@@ -19,11 +19,11 @@ module.exports = function (app) {
             valid: false,
             conflict: error
           });
-        } else if (error.name == 'TypeError') {
+        } else {
           res.json({
-            error: 'Required field(s) missing'
+            error: error
           });
-        } else console.log;
+        }
       }
     });
     
