@@ -32,7 +32,6 @@ module.exports = function (app) {
         res.json({
           error: error
         });
-        console.log(error);
       }
     });
 };

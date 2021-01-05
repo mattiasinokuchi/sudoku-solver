@@ -126,6 +126,22 @@ suite('Functional Tests', () => {
       .send({
         puzzle: validString.puzzlesAndSolutions[0][0],
         coordinate: 'a1',
+        value: 8
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { valid: false, conflict: ['row', 'column'] });
+        done();
+      });
+    });
+
+    test('All conflicts', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: validString.puzzlesAndSolutions[0][0],
+        coordinate: 'a1',
         value: 2
       })
       .end(function (err, res) {
