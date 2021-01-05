@@ -216,6 +216,22 @@ suite('Functional Tests', () => {
       });
     });
 
+    test('Invalid placement value', function(done) {
+      chai.request(server)
+      .post('/api/check')
+      .send({
+        puzzle: validString.puzzlesAndSolutions[0][0],
+        coordinate: 'a1',
+        value: 0
+      })
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        assert.isObject(res.body, true);
+        assert.deepEqual(res.body, { error: 'Invalid value' });
+        done();
+      });
+    });
+
   });
 
 });
