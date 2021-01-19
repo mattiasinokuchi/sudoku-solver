@@ -136,9 +136,9 @@ class SudokuSolver {
 
   // Function for checking manual placement
   checkPlace(string, coordinate, value) {
+    if (!string || !coordinate || !value) throw 'Required field(s) missing';
     let invalidValid = /[^.1-9]/.test(value);
     if (invalidValid) throw 'Invalid value';
-    if (string == '' || coordinate == '' || value == '') throw 'Required field(s) missing';
     this.validate(string);
     let conflicts = [];
     const index = indexOf(coordinate);
