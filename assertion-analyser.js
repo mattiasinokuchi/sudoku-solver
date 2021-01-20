@@ -97,8 +97,10 @@ function assertionAnalyser(body) {
   // body = body.replace(/\/\/.*\n|\/\*.*\*\//g, '');
   // // get test function body
   // body = body.match(/\{\s*([\s\S]*)\}\s*$/)[1];
-  
-  if(!body) return "invalid assertion";
+  if(!body) {
+    //console.log("invalid assertion");
+    return "invalid assertion";
+  }
   // replace assertions bodies, so that they cannot
   // contain the word 'assertion'
 
@@ -107,6 +109,7 @@ function assertionAnalyser(body) {
     body = cleanedBody[0];
   } else {
     // No assertions present
+    //console.log("No assertions present");
     return [];
   }
   let s = replacer(body);
@@ -122,7 +125,10 @@ function assertionAnalyser(body) {
     let pre = splittedAssertions[i].match(/browser\s*\.\s*/) ? 'browser.' : '';
     return pre + m[1];
   });
-  if(methods.some(function(m){ return !m })) return "invalid assertion";
+  if(methods.some(function(m){ return !m })) {
+    //console.log("invalid assertion");
+    return "invalid assertion";
+  }
   // remove parens from the assertions bodies
   let bodies = assertionBodies.map(function(b){
     return s.dictionary[b].slice(1,-1).trim();
@@ -133,6 +139,7 @@ function assertionAnalyser(body) {
       args: splitter(bodies[i]) //replace objects, split on ',' ,then restore objects
     }
   })
+  //console.log("assertions: ", assertions);
   return assertions;
 }
 
