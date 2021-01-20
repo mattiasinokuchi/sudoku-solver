@@ -196,7 +196,7 @@ suite('Functional Tests', () => {
       });
     });
 
-    test('Invalid placement coordinate', function(done) {
+    test('Invalid coordinate', function(done) {
       chai.request(server)
       .post('/api/check')
       .send({
@@ -212,7 +212,7 @@ suite('Functional Tests', () => {
       });
     });
 
-    test('Invalid placement value', function(done) {
+    test('Invalid value', function(done) {
       chai.request(server)
       .post('/api/check')
       .send({
