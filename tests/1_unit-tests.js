@@ -17,10 +17,11 @@ suite('Unit Tests', () => {
     test('Invalid characters', function(done) {
       try {
         let string = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-        assert.fail(solver.validate(string), 'Invalid characters in puzzle');
+        console.log(solver.validate(string));
+        assert.fail(solver.validate(string), 'Invalid characters in puzzlejhiuh');
         //expect(() => solver.validate(string)).to.throw('Invalid characters in puzzle');
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       done();
     });
@@ -31,7 +32,7 @@ suite('Unit Tests', () => {
         assert.fail(solver.validate(string), 'Expected puzzle to be 81 characters long');
         //expect(() => solver.validate(string)).to.throw('Expected puzzle to be 81 characters long');
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       done();
     });
@@ -98,7 +99,7 @@ suite('Unit Tests', () => {
         assert.fail(solver.solve(string), 'Puzzle cannot be solved');
         //expect(() => solver.solve(string)).to.throw('Puzzle cannot be solved');      
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       done();
     });

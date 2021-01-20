@@ -19,11 +19,8 @@ module.exports = function (app) {
             valid: false,
             conflict: error
           });
-        } else {
-          res.json({
-            error: error
-          });
-        }
+        } else if (!error.name) res.json({ error: error });
+        else console.log(error);
       }
     });
     
@@ -35,9 +32,8 @@ module.exports = function (app) {
           solution: solution
         });
       } catch (error) {
-        res.json({
-          error: error
-        });
+        if (!error.name) res.json({ error: error });
+        else console.log(error); 
       }
     });
 };
