@@ -60,8 +60,8 @@ module.exports = function (app) {
     
   let error;
   app.get('/_api/get-tests', cors(), function(req, res, next){
-    //console.log(error);
     if(!error && process.env.NODE_ENV === 'test') return next();
+    console.log('unavailable');
     res.json({status: 'unavailable'});
   },
   function(req, res, next){
@@ -70,6 +70,7 @@ module.exports = function (app) {
   },
   function(req, res){
     runner.on('done', function(report){
+      console.log((testFilter(runner.report, req.query.type, req.query.n)));
       process.nextTick(() =>  res.json(testFilter(runner.report, req.query.type, req.query.n)));
     });
   });
@@ -85,7 +86,6 @@ module.exports = function (app) {
 };
 
 function testFilter(tests, type, n) {
-  //console.log(tests, type, n);
   let out;
   switch (type) {
     case 'unit' :
@@ -100,5 +100,6 @@ function testFilter(tests, type, n) {
   if(n !== undefined) {
     return out[n] || out;
   }
+//  console.log(out);
   return out;
 }

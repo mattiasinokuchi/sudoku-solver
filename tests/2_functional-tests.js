@@ -180,7 +180,7 @@ suite('Functional Tests', () => {
       });
     });
 
-    test('Incorrect length', function(done) {
+    test('Not 81 characters', function(done) {
       chai.request(server)
       .post('/api/check')
       .send({
