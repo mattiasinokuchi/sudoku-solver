@@ -1,12 +1,41 @@
 class SudokuSolver {
 
   // Function for validate input
+
+  validate(string) {
+    return this.hasInvalidInput(string);
+  }
+
   hasInvalidInput(string) {
     if (!string) return 'Required field missing';
     let invalidCharacter = /[^.1-9]/.test(string);
     if (invalidCharacter) return 'Invalid characters in puzzle';
     if (string.length != 81) return 'Expected puzzle to be 81 characters long';
     return;
+  }
+  
+  checkRowPlacement(puzzleString, row, column, value) {
+    const coordinate = row + column;
+    const index = indexOf(coordinate);
+    const newString = setString(puzzleString, index, value);
+    if (this.hasInvalidRow(newString)) return "invalid";
+    else return "valid";   
+  }
+
+  checkColPlacement(puzzleString, row, column, value) {
+    const coordinate = row + column;
+    const index = indexOf(coordinate);
+    const newString = setString(puzzleString, index, value);
+    if (this.hasInvalidColumn(newString)) return "invalid";
+    else return "valid";
+  }
+
+  checkRegionPlacement(puzzleString, row, column, value) {
+    const coordinate = row + column;
+    const index = indexOf(coordinate);
+    const newString = setString(puzzleString, index, value);
+    if (this.hasInvalidRegion(newString)) return "invalid";
+    else return "valid";
   }
 
   // Function for validate rows...
