@@ -10,29 +10,22 @@ suite('Unit Tests', () => {
   suite('Puzzle string', () => {
 
     test('Valid string', function(done) {
-      assert.equal(solver.validate(validString.puzzlesAndSolutions[0][0]), null);
+      assert.equal(solver.hasInvalidInput(validString.puzzlesAndSolutions[0][0]), null);
       done();
     });
 
     test('Invalid characters', function(done) {
-      try {
-        let stringWithInvalidCharacters = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-        assert.throws(solver.validate(stringWithInvalidCharacters), Error);
-      } catch (error) {
-        assert.equal(error, 'Invalid characters in puzzle');
-      }
+      let invalidCharacter = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      assert.equal(solver.hasInvalidInput(invalidCharacter), 'Invalid characters in puzzle');
       done();
     });
 
     test('Not 81 characters', function(done) {
-      try {
-        let shortString = '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-        assert.throws(solver.validate(shortString), Error);
-      } catch (error) {
-        assert.equal(error, 'Expected puzzle to be 81 characters long');
-      }
+      let shortString = '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+      assert.equal(solver.hasInvalidInput(shortString), 'Expected puzzle to be 81 characters long');
       done();
     });
+
   });
 
   suite('Row placement', () => {
@@ -47,6 +40,7 @@ suite('Unit Tests', () => {
       assert.equal(solver.hasInvalidRow(string), true);
       done();
     });
+
   });
 
   suite('Column placement', () => {
@@ -61,6 +55,7 @@ suite('Unit Tests', () => {
       assert.equal(solver.hasInvalidColumn(string), true);
       done();
     });
+
   });
 
   suite('Region placement', () => {
@@ -75,6 +70,7 @@ suite('Unit Tests', () => {
       assert.equal(solver.hasInvalidRegion(string), true);
       done();
     });
+
   });
 
   suite('Solver', () => {
@@ -91,12 +87,8 @@ suite('Unit Tests', () => {
     });*/
 
     test('Invalid string', function(done) {
-      try {
-        let shortString = '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-        assert.throws(solver.solve(shortString), Error);
-      } catch (error) {
-        assert.equal(error, 'Expected puzzle to be 81 characters long');
-      }
+      let invalidString = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
+      assert.throws(() => solver.solve(invalidString), /Puzzle cannot be solved/);
       done();
     });
 
@@ -104,5 +96,7 @@ suite('Unit Tests', () => {
       assert.equal(solver.solve(validString.puzzlesAndSolutions[0][0]), validString.puzzlesAndSolutions[0][1]);
       done();
     });
+
   });
+
 });

@@ -1,12 +1,11 @@
 class SudokuSolver {
 
-  // Function for validate input string
-  validate(string) {
-    if (!string) throw 'Required field missing';
-    // define characters
+  // Function for validate input
+  hasInvalidInput(string) {
+    if (!string) return 'Required field missing';
     let invalidCharacter = /[^.1-9]/.test(string);
-    if (invalidCharacter) throw 'Invalid characters in puzzle';
-    if (string.length != 81) throw 'Expected puzzle to be 81 characters long';
+    if (invalidCharacter) return 'Invalid characters in puzzle';
+    if (string.length != 81) return 'Expected puzzle to be 81 characters long';
     return;
   }
 
@@ -95,7 +94,7 @@ class SudokuSolver {
 
   // Function for solving sudoku by brute force...
   solve(string, answer) {
-    this.validate(string);
+    if (this.hasInvalidInput(string)) throw this.hasInvalidInput(string);
     // ...splits string to an array...
     const solution = string.split('');
     let backToIndex = solution.length;
@@ -139,7 +138,7 @@ class SudokuSolver {
     if (!string || !coordinate || !value) throw 'Required field(s) missing';
     let invalidValid = /[^.1-9]/.test(value);
     if (invalidValid) throw 'Invalid value';
-    this.validate(string);
+    if (this.hasInvalidInput(string)) throw this.hasInvalidInput(string);
     let conflicts = [];
     const index = indexOf(coordinate);
     const newString = setString(string, index, value);
