@@ -7,31 +7,31 @@ const validString = require ('../controllers/puzzle-strings.js');
 
 suite('Unit Tests', () => {
   
-  suite('Puzzle string', () => {
+  //suite('Puzzle string', () => {
 
-    test('Valid string', function(done) {
+    test('valid puzzle string of 81 characters', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       assert.equal(solver.validate(string), null);
       done();
     });
 
-    test('Invalid characters', function(done) {
+    test('puzzle string with invalid characters (not 1-9 or .)', function(done) {
       let invalidString = '..A..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
       assert.equal(solver.validate(invalidString), 'Invalid characters in puzzle');
       done();
     });
 
-    test('Not 81 characters', function(done) {
+    test('puzzle string that is not 81 characters in length', function(done) {
       let invalidString = '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
       assert.equal(solver.validate(invalidString), 'Expected puzzle to be 81 characters long');
       done();
     });
 
-  });
+  //});
 
-  suite('Row placement', () => {
+  //suite('Row placement', () => {
     
-    test('Valid row', function(done) {
+    test('valid row placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 1;
@@ -40,7 +40,7 @@ suite('Unit Tests', () => {
       done();
     });
 
-    test('Invalid row', function(done) {
+    test('invalid row placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 4;
@@ -49,11 +49,11 @@ suite('Unit Tests', () => {
       done();
     });
 
-  });
+  //});
 
-  suite('Column placement', () => {
+  //suite('valid column placement', () => {
 
-    test('Valid column', function(done) {
+    test('valid column placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 1;
@@ -62,7 +62,7 @@ suite('Unit Tests', () => {
       done();
     });
 
-    test('Invalid column', function(done) {
+    test('invalid column placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 1;
@@ -71,11 +71,11 @@ suite('Unit Tests', () => {
       done();
     });
 
-  });
+  //});
 
-  suite('Region placement', () => {
+  //suite('Region placement', () => {
 
-    test('Valid region', function(done) {
+    test('valid region placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 1;
@@ -84,7 +84,7 @@ suite('Unit Tests', () => {
       done();
     });
 
-    test('Invalid region', function(done) {
+    test('invalid region placement', function(done) {
       let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
       let row = "A";
       let column = 1;
@@ -93,29 +93,36 @@ suite('Unit Tests', () => {
       done();
     });
 
-  });
+  //});
 
-  suite('Solver', () => {
+  //suite('Solver', () => {
 
-    test('Valid strings', function(done) {
-      let string = "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
-      assert.doesNotThrow(() => solver.solve(string));
+    test('valid puzzle strings pass the solver', function(done) {
+      let string = "5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3";
+      let solution = "568913724342687519197254386685479231219538467734162895926345178473891652851726943";
+      assert.equal(solver.solve(string), solution);
       done();
     });
 
-    test('Invalid string', function(done) {
+    /*test('Invalid string', function(done) {
       let invalidString = "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.";
       assert.throws(() => solver.solve(invalidString), /Puzzle cannot be solved/);
       done();
+    });*/
+
+    test('invalid puzzle strings fail the solver', function(done) {
+      let invalidString = "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.";
+      assert.equal(solver.solve(invalidString), "Puzzle cannot be solved");
+      done();
     });
 
-    test('Expected solution', function(done) {
+    test('Solver returns the the expected solution for an incomplete puzzzle', function(done) {
       let string = "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.";
       let solution = "135762984946381257728459613694517832812936745357824196473298561581673429269145378";
       assert.equal(solver.solve(string), solution);
       done();
     });
 
-  });
+  //});
 
 });

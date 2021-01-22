@@ -156,7 +156,7 @@ class SudokuSolver {
         backToIndex = solution.lastIndexOf(lastFilled(solution));
       }
       if (backToIndex<0) {
-        throw 'Puzzle cannot be solved';
+        return 'Puzzle cannot be solved';
       }
     }
     return solution.join('');
