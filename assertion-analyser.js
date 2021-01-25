@@ -139,7 +139,7 @@ function assertionAnalyser(body) {
       args: splitter(bodies[i]) //replace objects, split on ',' ,then restore objects
     }
   })
-  //console.log("assertions: ", assertions);
+  console.log("assertions: ", assertions);
   return assertions;
 }
 
