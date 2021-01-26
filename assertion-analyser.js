@@ -103,19 +103,20 @@ function assertionAnalyser(body) {
   }
   // replace assertions bodies, so that they cannot
   // contain the word 'assertion'
-
+  //console.log(body);
   let cleanedBody = body.match(/(?:browser\s*\.\s*)?assert\s*\.\s*\w*\([\s\S]*\)/)
   if(cleanedBody && Array.isArray(cleanedBody)) {
     body = cleanedBody[0];
   } else {
     // No assertions present
-    //console.log("No assertions present");
+    console.log("No assertions present");
     return [];
   }
   let s = replacer(body);
   // split on 'assertion'
   let splittedAssertions = s.str.split('assert');
   let assertions = splittedAssertions.slice(1);
+  //console.log("assertions: ", assertions);
   // match the METHODS
 
   let assertionBodies = [];
@@ -125,21 +126,23 @@ function assertionAnalyser(body) {
     let pre = splittedAssertions[i].match(/browser\s*\.\s*/) ? 'browser.' : '';
     return pre + m[1];
   });
+  //console.log("methods: ", methods);
   if(methods.some(function(m){ return !m })) {
-    //console.log("invalid assertion");
+    console.log("invalid assertion");
     return "invalid assertion";
   }
   // remove parens from the assertions bodies
   let bodies = assertionBodies.map(function(b){
     return s.dictionary[b].slice(1,-1).trim();
   });
+  //console.log("bodies: ", bodies);
   assertions = methods.map(function(m, i) {
     return {
       method: m,
       args: splitter(bodies[i]) //replace objects, split on ',' ,then restore objects
     }
   })
-  console.log("assertions: ", assertions);
+  console.log("assertion-analyser: ", assertions);
   return assertions;
 }
 

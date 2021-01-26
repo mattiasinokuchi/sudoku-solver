@@ -231,4 +231,3 @@ suite('Functional Tests', () => {
   });
 
 });
-

@@ -5,7 +5,7 @@ const Solver = require('../controllers/sudoku-solver.js');
 let solver = new Solver();
 const validString = require ('../controllers/puzzle-strings.js');
 
-suite('Unit Tests', () => {
+suite('UnitTests', () => {
   
   suite('Puzzle string', () => {
 
@@ -82,7 +82,11 @@ suite('Unit Tests', () => {
 
     test('Invalid string', function(done) {
       let invalidString = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....923914.67.';
-      assert.throws(() => solver.solve(invalidString), /Puzzle cannot be solved/);
+      try {
+        assert.fail(solver.solve(invalidString));
+      } catch (error) {
+        assert.throws(function () { solver.solve(invalidString)}, /Puzzle cannot be solved/);
+      }
       done();
     });
 
